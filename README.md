@@ -18,10 +18,14 @@ docker run -p 6443:443 --env PHPLDAPADMIN_LDAP_HOSTS=${docker inspect -f "{{ .Ne
 
 Once the container is running it can be accessed at `https://localhost:6443`. You'll need to login with the admin credentials. By default these are `cn=damin,dc=example,dc=org:admin`.
 
-You'll need to add a new user that you can use to log into the application. This app is configured to use the inetOrgPerson type. 
-In the phpLDAPAdmin click the drop down menu for the DN you have set up. It will be `dc=example,dc=org` by default.
-Go to `Create new entry here` and select `Default`. Once in `Default` go to the drop down menu and select inetOrgPerson.
-Set the `RDN` to `cn` and add an entry for the cn, sn, and password. Click create and commit the entry.
+## Adding a user
+
+You'll need to add a new user that you can use to log into the application. This app is configured to use the `inetOrgPerson` type. 
+- In the phpLDAPAdmin click the drop down menu for the DN you have set up. It will be `dc=example,dc=org` by default.
+- Go to `Create new entry here` and select `Default`. Once in `Default` go to the drop down menu and select inetOrgPerson.
+- Set the `RDN` to `cn` and add an entry for the `cn`, `sn`, and `password`. 
+- Click create and commit the entry.
+
 You should now have a new user in your OpenLDAP registry.
 
 ## Running and accessing the application
