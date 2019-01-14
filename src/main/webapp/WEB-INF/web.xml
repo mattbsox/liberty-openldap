@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+                         "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app id="ldap-test">
+
+ <!-- SERVLET DEFINITIONS -->
+ <servlet id="Default">
+    <servlet-name>servlet</servlet-name>
+    <servlet-class>application.servlet.LibertyServlet</servlet-class>
+    <load-on-startup/>
+ </servlet>
+
+ <!-- SERVLET MAPPINGS -->        
+ <servlet-mapping id="ServletMapping_Default">
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+ </servlet-mapping>
+
+ <!-- SECURITY ROLES -->
+ <security-role>
+    <role-name>admins</role-name>
+ </security-role>
+
+ <!-- SECURITY CONSTRAINTS -->
+ <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admins</role-name>
+    </auth-constraint>
+ </security-constraint>
+
+ <!-- AUTHENTICATION METHOD: Basic authentication -->
+ <login-config>
+    <auth-method>BASIC</auth-method>
+ </login-config> 
+
+</web-app>

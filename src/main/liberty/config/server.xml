@@ -1,0 +1,33 @@
+<server description="Liberty with LDAP">
+
+    <featureManager>
+        <feature>servlet-3.1</feature>
+        <feature>appSecurity-2.0</feature>
+        <feature>ldapregistry-3.0</feature>
+    </featureManager>
+    
+    <ldapRegistry id="ldap" realm="defaultRealm" 
+        host="localhost" 
+        port="389"
+        ignoreCase="true"
+        ldapType="Custom"
+        baseDN="dc=example,dc=org" 
+        bindDN="cn=admin,dc=example,dc=org"
+        bindPassword="admin"
+        sslEnabled="false">
+        <customFilters 
+            userFilter="(&amp;(uid=%v)(objectClass=inetOrgPerson))" 
+            groupFilter="(&amp;(cn=%v)(objectClass=groupOfNames))" 
+            groupIdMap="*:cn" userIdMap="*:uid" 
+            groupMemberIdMap="groupOfNames:admins"/>
+    </ldapRegistry>
+
+    <application type="war" id="ldap-test" name="ldap-test" location="ldap-test.war" contextroot="ldap-test">
+        <application-bnd>
+            <security-role name="admins">
+                <special-subject type="ALL_AUTHENTICATED_USERS" />
+            </security-role>
+        </application-bnd>
+    </application>
+
+</server>
