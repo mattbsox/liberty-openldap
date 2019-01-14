@@ -13,10 +13,10 @@ docker run -p 389:389 -p 689:689 --name ldaptest --detach osixia/openldap:1.2.2
 Then start and configure the [phpLDAPadmin](https://github.com/osixia/docker-phpLDAPadmin) to connect to your OpenLDAP container.
 
 ```
-docker run -p 6443:443 --env PHPLDAPADMIN_LDAP_HOSTS=${docker inspect -f "{{ .NetworkSettings.IPAddress }}" testldap} --detach osixia/phpldapadmin:0.7.2
+docker run -p 6443:443 --env PHPLDAPADMIN_LDAP_HOSTS=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" ldaptest) --detach osixia/phpldapadmin:0.7.2
 ```
 
-Once the container is running it can be accessed at `https://localhost:6443`. You'll need to login with the admin credentials. By default these are `cn=damin,dc=example,dc=org:admin`.
+Once the container is running it can be accessed at [https://localhost:6443](https://localhost:6443). You'll need to login with the admin credentials. By default these are **Login DN:** => `cn=admin,dc=example,dc=org:admin` with **Password:** => `admin` .
 
 ## Adding a user
 
@@ -36,11 +36,11 @@ To run the application use:
 mvn clean install liberty:start
 ```
 
-Connect to the application at [localhost:9080/ldap-test/](localhost:9080/ldap-test/).
+Connect to the application at [http://localhost:9080/ldap-test/](http://localhost:9080/ldap-test/).
 
 Enter your user's name and password into the login box. You'll need to use the whole name you entered earlier, e.g. `cn=user,dc=example,dc=org`.
 
-If all goes well you should see `Hello, from a Servlet!`
+If all goes well you should see a message ending with:  `Hello, from a Servlet!`
 
 To stop the server use:
 
